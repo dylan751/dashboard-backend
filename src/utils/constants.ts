@@ -5,8 +5,8 @@ export const HTTP_EXCEPTION_ERROR_MESSAGES = {
   MISSING_JWT_TOKEN: 'missing JWT token',
   MISSING_DATA_PAYLOAD: 'missing user data in payload',
   USER_DOES_NOT_EXIST: "user doesn't exist",
-  COMPANY_DOES_NOT_EXIST: "company doesn't exist",
   USER_EMAIL_MUST_UNIQUE: "user's email must be unique",
+  INVALID_PASSWORD: 'Invalid password',
   GROUP_DOES_NOT_EXIST: "group doesn't exist",
   GROUP_HAS_MEMBERS: 'group has members that cannot be removed',
   GROUP_DISP_NAME_MUST_UNIQUE: "group's display name must be unique",
@@ -83,6 +83,7 @@ export const HTTP_EXCEPTION_ERROR_CODE = {
   GOTRUE_FORBIDDEN: 1101,
   GOTRUE_AUTH_FAILED: 1102,
   GOTRUE_FAILED: 1103,
+  INVALID_PASSWORD: 1104,
 
   // USER: 20XX
   USER_DOES_NOT_EXIST: 2001,
