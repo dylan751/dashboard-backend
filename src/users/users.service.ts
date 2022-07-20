@@ -10,6 +10,8 @@ import {
   HTTP_EXCEPTION_ERROR_CODE,
   HTTP_EXCEPTION_ERROR_MESSAGES,
 } from 'src/utils/constants';
+import * as bcrypt from 'bcrypt';
+import { hashPassword } from 'src/utils/bcrypt';
 
 @Injectable()
 export class UsersService {
@@ -18,7 +20,11 @@ export class UsersService {
 
   async create(userData: CreateUserDto): Promise<ServiceReturn<UserInfo>> {
     try {
-      const { username, password, salt, email, name, role } = userData;
+      const { username, password, email, name, role } = userData;
+
+      // Hashing user's password
+      const salt = bcrypt.genSaltSync();
+      const hashedPassword = hashPassword(password, salt);
 
       // Query all user. Check unique email
       const queryUsernames = await this.conn.query(
@@ -58,7 +64,7 @@ export class UsersService {
                   VALUES ($1,$2,$3,$4,$5,$6)
                   RETURNING id
                 `,
-          [username, password, salt, email, name, role],
+          [username, hashedPassword, salt, email, name, role],
         );
         const { id: userId } = userQueryInsert.rows[0];
         await this.conn.query('COMMIT');
@@ -266,6 +272,7 @@ export class UsersService {
             id: userData[0].id,
             username: userData[0].username,
             password: userData[0].password,
+            salt: userData[0].salt,
             name: userData[0].name,
             email: userData[0].email,
             role: userData[0].role,
