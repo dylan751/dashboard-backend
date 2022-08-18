@@ -1,6 +1,9 @@
 {
   "name": "dashboard-backend",
   "version": "0.0.1",
+  "engines": {
+    "node": "16.14.2"
+  },
   "description": "",
   "author": "",
   "private": true,
