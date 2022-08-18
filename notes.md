@@ -36,3 +36,7 @@
 - CLI commands:
   - `\dt`: Get all relations (TABLE)
   - `\d+ <table_name>`: Get the table details + constraints of the table
+
+## Notes
+- To connect API to PostgresDB:
+  - Add: `PGSSLMODE='no-verify'` env variables to your Heroku API app

@@ -26,14 +26,14 @@ export class AppService {
         FROM users
       `,
     );
-    const { username, password } = queryUsers.rows[0];
+    const { email, password } = queryUsers.rows[0];
 
     try {
       return {
         err: null,
         data: {
           edges: {
-            username: username,
+            email: email,
             password: password,
           },
         },
