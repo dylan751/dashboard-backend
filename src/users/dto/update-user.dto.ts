@@ -1,4 +1,3 @@
-import { PartialType } from '@nestjs/mapped-types';
 import { ApiProperty } from '@nestjs/swagger';
 import {
   IsNumberString,
@@ -8,9 +7,8 @@ import {
 } from 'class-validator';
 import { IsUserExisted } from 'src/validators/user.validator';
 import { UserRole } from '../entities/user.entity';
-import { CreateUserDto } from './create-user.dto';
 
-export class UpdateUserDto extends PartialType(CreateUserDto) {
+export class UpdateUserDto {
   @ApiProperty()
   @IsString()
   username: string;

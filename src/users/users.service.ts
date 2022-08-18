@@ -310,7 +310,7 @@ export class UsersService {
     updateUserData: UpdateUserDto,
   ): Promise<ServiceReturn<UserInfo>> {
     try {
-      const { username, password, salt, email, name, role } = updateUserData;
+      const { username, password, email, name, role } = updateUserData;
       let query = 'UPDATE users SET';
 
       // Query user
@@ -345,11 +345,6 @@ export class UsersService {
       // Update password
       if (password) {
         query += ` password = \'${password}\',`;
-      }
-
-      // Update salt
-      if (salt) {
-        query += ` salt = \'${salt}\',`;
       }
 
       // Update email
