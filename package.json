@@ -16,7 +16,7 @@
     "start": "nest start",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
-    "start:prod": "node src/main",
+    "start:prod": "node dist/main.js",
     "postinstall": "tsc --sourceMap false",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest",
