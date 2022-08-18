@@ -14,8 +14,12 @@ export class AppService {
   private readonly logger = new Logger(AppService.name);
   constructor(@Inject('DATABASE_POOL') private conn: Pool) {}
 
+  getHello() {
+    return 'Hello World';
+  }
+
   // Test API Only
-  async getHello(): Promise<ServiceReturn<User>> {
+  async findAll(): Promise<ServiceReturn<User>> {
     const queryUsers = await this.conn.query(
       `
         SELECT *
