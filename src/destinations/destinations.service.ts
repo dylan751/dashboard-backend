@@ -281,8 +281,10 @@ export class DestinationsService {
 
       // Update image
       if (image) {
-        query += ` image = \'${image}\';`;
+        query += ` image = \'${image}\'`;
       }
+
+      query += `WHERE destinationid = \'${id}\'`;
 
       await this.conn.query(query);
 

@@ -396,8 +396,10 @@ export class ToursService {
 
       // Update isTrending
       if (isTrending) {
-        query += ` isTrending = \'${isTrending}\';`;
+        query += ` isTrending = \'${isTrending}\'`;
       }
+
+      query += `WHERE tourid = \'${id}\'`;
 
       await this.conn.query(query);
 
