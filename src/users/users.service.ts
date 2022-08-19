@@ -20,24 +20,24 @@ export class UsersService {
 
   async create(userData: CreateUserDto): Promise<ServiceReturn<UserInfo>> {
     try {
-      const { username, password, email, name, role } = userData;
+      const { email, password } = userData;
 
       // Hashing user's password
       const salt = bcrypt.genSaltSync();
       const hashedPassword = hashPassword(password, salt);
 
       // Query all user. Check unique email
-      const queryUsernames = await this.conn.query(
+      const queryEmails = await this.conn.query(
         `
-          SELECT username
+          SELECT email
           FROM users
         `,
       );
 
-      const usernames = queryUsernames.rows.map((row) => row.username);
+      const emails = queryEmails.rows.map((row) => row.email);
 
-      // TODO: Update check username unique on all server
-      if (usernames.includes(username)) {
+      // TODO: Update check email unique on all server
+      if (emails.includes(email)) {
         return {
           err: AppResponse.conflict(
             [HTTP_EXCEPTION_ERROR_MESSAGES.USER_EMAIL_MUST_UNIQUE],
@@ -52,21 +52,18 @@ export class UsersService {
         // Create new user record
         const userQueryInsert = await this.conn.query(
           `
-                  INSERT INTO users
-                    (
-                      username,
-                      password,
-                      salt,
-                      email,
-                      name,
-                      role
-                    )
-                  VALUES ($1,$2,$3,$4,$5,$6)
-                  RETURNING id
-                `,
-          [username, hashedPassword, salt, email, name, role],
+            INSERT INTO users
+              (
+                email,
+                salt,
+                password
+              )
+            VALUES ($1,$2,$3)
+            RETURNING userid
+          `,
+          [email, salt, hashedPassword],
         );
-        const { id: userId } = userQueryInsert.rows[0];
+        const userId = userQueryInsert.rows[0].userid;
         await this.conn.query('COMMIT');
 
         const { err, data } = await this.findOne(userId);
@@ -76,12 +73,9 @@ export class UsersService {
           return {
             err: null,
             data: {
-              id: userId,
-              username: userInfo.username,
-              salt: userInfo.salt,
+              userId: userId,
               email: userInfo.email,
-              name: userInfo.name,
-              role: userInfo.role,
+              salt: userInfo.salt,
             },
           };
         }
@@ -148,12 +142,10 @@ export class UsersService {
     try {
       let query = `
         SELECT
-          id,
-          username,
-          salt,
+          userid,
           email,
-          name,
-          role
+          salt,
+          password
         FROM users
       `;
 
@@ -166,12 +158,10 @@ export class UsersService {
       // Update code findAll
       const collection: Collection<User> = {
         edges: users.rows.map((row) => ({
-          id: row.id,
-          username: row.username,
-          salt: row.salt,
+          userId: row.userid,
           email: row.email,
-          name: row.name,
-          role: row.role,
+          salt: row.salt,
+          password: row.password,
         })),
         pageInfo: {
           limit: limit || 0,
@@ -201,25 +191,19 @@ export class UsersService {
       const { rows: userData } = await this.conn.query(
         `
             SELECT
-              id,
-              username,
-              salt,
+              userid,
               email,
-              name,
-              role
+              salt
             FROM users
-            WHERE users.id = $1
+            WHERE users.userid = $1
             `,
         [id],
       );
 
       const user: UserInfo = userData[0]
         ? {
-            id,
-            username: userData[0].username,
-            name: userData[0].name,
+            userId: id,
             email: userData[0].email,
-            role: userData[0].role,
           }
         : null;
 
@@ -249,33 +233,27 @@ export class UsersService {
     }
   }
 
-  async findOneByUsername(username: string): Promise<ServiceReturn<User>> {
+  async findOneByEmail(email: string): Promise<ServiceReturn<User>> {
     try {
       const { rows: userData } = await this.conn.query(
         `
             SELECT
-              id,
-              username,
-              password,
-              salt,
+              userid,
               email,
-              name,
-              role
+              password,
+              salt
             FROM users
-            WHERE users.username = $1
+            WHERE users.email = $1
             `,
-        [username],
+        [email],
       );
 
       const user: User = userData[0]
         ? {
-            id: userData[0].id,
-            username: userData[0].username,
+            userId: userData[0].userid,
+            email: userData[0].email,
             password: userData[0].password,
             salt: userData[0].salt,
-            name: userData[0].name,
-            email: userData[0].email,
-            role: userData[0].role,
           }
         : null;
 
@@ -310,16 +288,16 @@ export class UsersService {
     updateUserData: UpdateUserDto,
   ): Promise<ServiceReturn<UserInfo>> {
     try {
-      const { username, password, email, name, role } = updateUserData;
+      const { email, password } = updateUserData;
       let query = 'UPDATE users SET';
 
       // Query user
       const queryUser = await this.conn.query(
         `
           SELECT
-            id,
+            userid,
           FROM users
-          WHERE id = $1
+          WHERE userid = $1
         `,
         [userId],
       );
@@ -337,31 +315,15 @@ export class UsersService {
 
       await this.conn.query('BEGIN');
 
-      // Update username
-      if (username) {
-        query += ` username = \'${username}\',`;
+      // Update email
+      if (email) {
+        query += ` email = \'${email}\'`;
       }
 
       // Update password
       if (password) {
         query += ` password = \'${password}\',`;
       }
-
-      // Update email
-      if (email) {
-        query += ` email = \'${email}\',`;
-      }
-
-      // Update full name
-      if (name) {
-        query += ` name = \'${name}\',`;
-      }
-
-      // Update role
-      if (role) {
-        query += ` role = \'${role}\';`;
-      }
-
       await this.conn.query(query);
 
       await this.conn.query('COMMIT');
@@ -414,15 +376,15 @@ export class UsersService {
     }
   }
 
-  async delete(userId: number) {
+  async delete(id: number) {
     try {
       const user = await this.conn.query(
         `
           SELECT
-            id
+            userid
           FROM users
-          WHERE id = $1`,
-        [userId],
+          WHERE userid = $1`,
+        [id],
       );
 
       if (!user.rows[0]) {
@@ -435,13 +397,13 @@ export class UsersService {
         };
       }
 
-      const { id } = user.rows[0];
+      const userId = user.rows[0].userid;
 
       // TRANSACTION
       await this.conn.query('BEGIN');
 
       // Remove user
-      await this.conn.query('DELETE from users WHERE id = $1;', [id]);
+      await this.conn.query('DELETE from users WHERE userid = $1;', [userId]);
 
       await this.conn.query('COMMIT');
 

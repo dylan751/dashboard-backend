@@ -5,7 +5,7 @@ import { ServiceReturn } from './common/models/ServiceReturn';
 import { HTTP_EXCEPTION_ERROR_CODE } from './utils/constants';
 
 interface User {
-  username: string;
+  email: string;
   password: string;
 }
 

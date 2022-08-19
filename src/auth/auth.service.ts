@@ -19,10 +19,10 @@ export class AuthService {
   ) {}
 
   async validateUser(
-    username: string,
+    email: string,
     password: string,
   ): Promise<ServiceReturn<any>> {
-    const user = await this.usersService.findOneByUsername(username);
+    const user = await this.usersService.findOneByEmail(email);
 
     if (user.data) {
       const hashedPassword = (user.data as User).password;
@@ -57,7 +57,7 @@ export class AuthService {
   }
 
   async login(user: any): Promise<ServiceReturn<any>> {
-    const payload = { username: user.username, sub: user.id };
+    const payload = { email: user.email, sub: user.id };
 
     return {
       err: null,
