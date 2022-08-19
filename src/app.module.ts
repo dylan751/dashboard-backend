@@ -8,6 +8,7 @@ import { DatabaseModule } from './database/database.module';
 import { UsersModule } from './users/users.module';
 import { ToursModule } from './tours/tours.module';
 import { DestinationsModule } from './destinations/destinations.module';
+import { FormsModule } from './forms/forms.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { DestinationsModule } from './destinations/destinations.module';
     UsersModule,
     ToursModule,
     DestinationsModule,
+    FormsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

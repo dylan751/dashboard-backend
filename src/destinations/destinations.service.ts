@@ -350,7 +350,7 @@ export class DestinationsService {
       // TRANSACTION
       await this.conn.query('BEGIN');
 
-      // Remove user
+      // Remove destination
       await this.conn.query(
         'DELETE from destinations WHERE destinationid = $1;',
         [destinationId],

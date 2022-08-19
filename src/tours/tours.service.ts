@@ -461,7 +461,7 @@ export class ToursService {
       // TRANSACTION
       await this.conn.query('BEGIN');
 
-      // Remove user
+      // Remove tour
       await this.conn.query('DELETE from tours WHERE tourid = $1;', [tourId]);
 
       await this.conn.query('COMMIT');
