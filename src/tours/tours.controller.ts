@@ -53,7 +53,7 @@ export class ToursController {
 
   @Delete(':id')
   async remove(@Param('id') id: string) {
-    const { err, data } = await this.toursService.remove(+id);
+    const { err, data } = await this.toursService.delete(+id);
     if (err) throw err;
 
     return AppResponse.ok(data);

@@ -104,7 +104,7 @@ export class ToursService {
           return {
             err: null,
             data: {
-              id: id,
+              tourId: id,
               title: tourInfo.title,
               duration: tourInfo.duration,
               startTime: tourInfo.startTime,
@@ -245,7 +245,7 @@ export class ToursService {
 
       const tour: Tour = tourData[0]
         ? {
-            id,
+            tourId: id,
             title: tourData[0].title,
             duration: tourData[0].duration,
             startTime: tourData[0].starttime,
@@ -431,7 +431,7 @@ export class ToursService {
     }
   }
 
-  async remove(id: number): Promise<ServiceReturn<any>> {
+  async delete(id: number): Promise<ServiceReturn<any>> {
     // TODO: Check cannot delete if some tables refencing this table
     try {
       const tour = await this.conn.query(

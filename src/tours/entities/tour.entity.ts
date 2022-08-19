@@ -1,5 +1,5 @@
 export class Tour {
-  id: number;
+  tourId: number;
   title: string;
   duration?: string;
   startTime?: string;
