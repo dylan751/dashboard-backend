@@ -117,13 +117,16 @@ export class DestinationsService {
       let query = `
         SELECT
           destinationId,
-          tourId,
-          name,
-          address,
-          description,
-          content,
-          image
+          destinations.tourId,
+          destinations.name,
+          destinations.address,
+          destinations.description,
+          destinations.content,
+          destinations.image,
+          tours.title as tour_name
         FROM destinations
+        INNER JOIN tours
+        ON destinations.tourId = tours.tourId
       `;
 
       if (limit >= 0 && offset >= 0) {
@@ -141,6 +144,7 @@ export class DestinationsService {
           description: row.description,
           content: row.content,
           image: row.image,
+          tourName: row.tour_name,
         })),
         pageInfo: {
           limit: limit || 0,
