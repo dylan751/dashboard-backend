@@ -1,9 +1,9 @@
 import { Inject, Injectable, Logger } from '@nestjs/common';
-import { CreateReviewDto } from './dto/create-review.dto';
-import { UpdateReviewDto } from './dto/update-review.dto';
+import { CreateContactDto } from './dto/create-contact.dto';
+import { UpdateContactDto } from './dto/update-contact.dto';
 import { Pool } from 'pg';
 import { ServiceReturn } from 'src/common/models/ServiceReturn';
-import { Review } from './entities/review.entity';
+import { Contact } from './entities/contact.entity';
 import Collection from 'src/common/models/Collection';
 import AppResponse from 'src/common/models/AppResponse';
 import {
@@ -12,53 +12,54 @@ import {
 } from 'src/utils/constants';
 
 @Injectable()
-export class ReviewsService {
-  private readonly logger = new Logger(ReviewsService.name);
+export class ContactsService {
+  private readonly logger = new Logger(ContactsService.name);
   constructor(@Inject('DATABASE_POOL') private conn: Pool) {}
 
   async create(
-    createReviewDto: CreateReviewDto,
-  ): Promise<ServiceReturn<Review>> {
+    createContactDto: CreateContactDto,
+  ): Promise<ServiceReturn<Contact>> {
     try {
-      const { userId, name, email, tourId, rating, content } = createReviewDto;
+      const { userId, name, phoneNumber, email, title, description } =
+        createContactDto;
 
       try {
         await this.conn.query('BEGIN');
 
-        // Create new user record
-        const reviewQueryInsert = await this.conn.query(
+        // Create new contact record
+        const contactQueryInsert = await this.conn.query(
           `
-            INSERT INTO reviews
+            INSERT INTO contacts
               (
                 userId,
                 name,
+                phoneNumber,
                 email,
-                tourId,
-                rating,
-                content
+                title,
+                description
               )
             VALUES ($1,$2,$3,$4,$5,$6)
-            RETURNING reviewid
+            RETURNING contactid
           `,
-          [userId, name, email, tourId, rating, content],
+          [userId, name, phoneNumber, email, title, description],
         );
-        const id = reviewQueryInsert.rows[0].reviewid;
+        const id = contactQueryInsert.rows[0].contactid;
         await this.conn.query('COMMIT');
 
         const { err, data } = await this.findOne(id);
 
         if (data && !err) {
-          const reviewInfo = data as Review;
+          const contactInfo = data as Contact;
           return {
             err: null,
             data: {
-              reviewId: id,
-              userId: reviewInfo.userId,
-              name: reviewInfo.name,
-              email: reviewInfo.email,
-              tourId: reviewInfo.tourId,
-              rating: reviewInfo.rating,
-              content: reviewInfo.content,
+              contactId: id,
+              userId: contactInfo.userId,
+              name: contactInfo.name,
+              phoneNumber: contactInfo.phoneNumber,
+              email: contactInfo.email,
+              title: contactInfo.title,
+              description: contactInfo.description,
             },
           };
         }
@@ -82,7 +83,7 @@ export class ReviewsService {
       return {
         err: AppResponse.internalServerError(
           [error.message],
-          HTTP_EXCEPTION_ERROR_CODE.REVIEW_CREATE_FAILED,
+          HTTP_EXCEPTION_ERROR_CODE.CONTACT_CREATE_FAILED,
         ),
         data: null,
       };
@@ -92,40 +93,40 @@ export class ReviewsService {
   async findAll(
     limit: number,
     offset: number,
-  ): Promise<ServiceReturn<Collection<Review>>> {
+  ): Promise<ServiceReturn<Collection<Contact>>> {
     try {
       let query = `
         SELECT
-          reviewid,
+          contactid,
           userid,
           name,
+          phoneNumber,
           email,
-          tourId,
-          rating,
-          content
-        FROM reviews
+          title,
+          description
+        FROM contacts
       `;
 
       if (limit >= 0 && offset >= 0) {
         query += `LIMIT ${limit} OFFSET ${offset};`;
       }
 
-      const reviews = await this.conn.query(query);
+      const contacts = await this.conn.query(query);
       // Update code findAll
-      const collection: Collection<Review> = {
-        edges: reviews.rows.map((row) => ({
-          reviewId: row.reviewid,
+      const collection: Collection<Contact> = {
+        edges: contacts.rows.map((row) => ({
+          contactId: row.contactid,
           userId: row.userid,
           name: row.name,
+          phoneNumber: row.phonenumber,
           email: row.email,
-          tourId: row.tourid,
-          rating: row.rating,
-          content: row.content,
+          title: row.title,
+          description: row.description,
         })),
         pageInfo: {
           limit: limit || 0,
           offset: offset || 0,
-          total: reviews.rows.length || 0,
+          total: contacts.rows.length || 0,
         },
       };
 
@@ -138,46 +139,46 @@ export class ReviewsService {
       return {
         err: AppResponse.internalServerError(
           [error.message],
-          HTTP_EXCEPTION_ERROR_CODE.REVIEW_LIST_FAILED,
+          HTTP_EXCEPTION_ERROR_CODE.CONTACT_LIST_FAILED,
         ),
         data: null,
       };
     }
   }
 
-  async findOne(id: number): Promise<ServiceReturn<Review>> {
+  async findOne(id: number): Promise<ServiceReturn<Contact>> {
     try {
-      const { rows: reviewData } = await this.conn.query(
+      const { rows: contactData } = await this.conn.query(
         `
           SELECT
-            reviewid,
+            contactid,
             userid,
             name,
+            phoneNumber,
             email,
-            tourId,
-            rating,
-            content
-          FROM reviews
-          WHERE reviews.reviewId = $1
+            title,
+            description
+          FROM contacts
+          WHERE contacts.contactId = $1
           `,
         [id],
       );
 
-      const review: Review = reviewData[0]
+      const contact: Contact = contactData[0]
         ? {
-            reviewId: id,
-            userId: reviewData[0].userid,
-            name: reviewData[0].name,
-            email: reviewData[0].email,
-            tourId: reviewData[0].tourid,
-            rating: reviewData[0].rating,
-            content: reviewData[0].content,
+            contactId: id,
+            userId: contactData[0].userid,
+            name: contactData[0].name,
+            phoneNumber: contactData[0].phonenumber,
+            email: contactData[0].email,
+            title: contactData[0].title,
+            description: contactData[0].description,
           }
         : null;
 
       return {
         err: null,
-        data: review as Review,
+        data: contact as Contact,
       };
     } catch (error) {
       this.logger.log(`findOne error: ${error.message}`);
@@ -185,7 +186,7 @@ export class ReviewsService {
         return {
           err: AppResponse.notFound(
             [error.message],
-            HTTP_EXCEPTION_ERROR_CODE.REVIEW_DOES_NOT_EXIST,
+            HTTP_EXCEPTION_ERROR_CODE.CONTACT_DOES_NOT_EXIST,
           ),
           data: null,
         };
@@ -194,7 +195,7 @@ export class ReviewsService {
       return {
         err: AppResponse.internalServerError(
           [error.message],
-          HTTP_EXCEPTION_ERROR_CODE.REVIEW_FIND_FAILED,
+          HTTP_EXCEPTION_ERROR_CODE.CONTACT_FIND_FAILED,
         ),
         data: null,
       };
@@ -203,29 +204,30 @@ export class ReviewsService {
 
   async update(
     id: number,
-    updateReviewDto: UpdateReviewDto,
-  ): Promise<ServiceReturn<Review>> {
+    updateContactDto: UpdateContactDto,
+  ): Promise<ServiceReturn<Contact>> {
     try {
-      const { userId, name, email, tourId, rating, content } = updateReviewDto;
-      let query = 'UPDATE reviews SET';
+      const { userId, name, phoneNumber, email, title, description } =
+        updateContactDto;
+      let query = 'UPDATE contacts SET';
 
-      // Query form
-      const queryReview = await this.conn.query(
+      // Query contact
+      const queryContact = await this.conn.query(
         `
           SELECT
-            reviewId
-          FROM reviews
-          WHERE reviewId = $1
+            contactId
+          FROM contacts
+          WHERE contactId = $1
         `,
         [id],
       );
 
-      // Check review exist
-      if (queryReview.rows.length === 0) {
+      // Check contact exist
+      if (queryContact.rows.length === 0) {
         return {
           err: AppResponse.notFound(
-            [HTTP_EXCEPTION_ERROR_MESSAGES.REVIEW_DOES_NOT_EXIST],
-            HTTP_EXCEPTION_ERROR_CODE.REVIEW_DOES_NOT_EXIST,
+            [HTTP_EXCEPTION_ERROR_MESSAGES.CONTACT_DOES_NOT_EXIST],
+            HTTP_EXCEPTION_ERROR_CODE.CONTACT_DOES_NOT_EXIST,
           ),
           data: null,
         };
@@ -243,27 +245,27 @@ export class ReviewsService {
         query += ` name = \'${name}\',`;
       }
 
+      // Update full phoneNumber
+      if (phoneNumber) {
+        query += ` phoneNumber = \'${phoneNumber}\',`;
+      }
+
       // Update full email
       if (email) {
         query += ` email = \'${email}\',`;
       }
 
-      // Update tourId
-      if (tourId) {
-        query += ` tourId = \'${tourId}\',`;
+      // Update full title
+      if (title) {
+        query += ` title = \'${title}\',`;
       }
 
-      // Update rating
-      if (rating) {
-        query += ` rating = \'${rating}\',`;
+      // Update full description
+      if (description) {
+        query += ` description = \'${description}\'`;
       }
 
-      // Update content
-      if (content) {
-        query += ` content = \'${content}\'`;
-      }
-
-      query += `WHERE reviewid = \'${id}\'`;
+      query += `WHERE contactid = \'${id}\'`;
 
       await this.conn.query(query);
 
@@ -280,8 +282,8 @@ export class ReviewsService {
       if (error.message === 'NOT_FOUND') {
         return {
           err: AppResponse.notFound(
-            [HTTP_EXCEPTION_ERROR_MESSAGES.REVIEW_DOES_NOT_EXIST],
-            HTTP_EXCEPTION_ERROR_CODE.REVIEW_DOES_NOT_EXIST,
+            [HTTP_EXCEPTION_ERROR_MESSAGES.CONTACT_DOES_NOT_EXIST],
+            HTTP_EXCEPTION_ERROR_CODE.CONTACT_DOES_NOT_EXIST,
           ),
           data: null,
         };
@@ -290,7 +292,7 @@ export class ReviewsService {
       return {
         err: AppResponse.internalServerError(
           [error.message],
-          HTTP_EXCEPTION_ERROR_CODE.REVIEW_UPDATE_FAILED,
+          HTTP_EXCEPTION_ERROR_CODE.CONTACT_UPDATE_FAILED,
         ),
         data: null,
       };
@@ -300,34 +302,34 @@ export class ReviewsService {
   async delete(id: number): Promise<ServiceReturn<any>> {
     // TODO: Check cannot delete if some tables refencing this table
     try {
-      const review = await this.conn.query(
+      const contact = await this.conn.query(
         `
           SELECT
-            reviewid
-          FROM reviews
-          WHERE reviewid = $1
+            contactid
+          FROM contacts
+          WHERE contactid = $1
         `,
         [id],
       );
 
-      if (!review.rows[0]) {
+      if (!contact.rows[0]) {
         return {
           err: AppResponse.notFound(
-            [HTTP_EXCEPTION_ERROR_MESSAGES.REVIEW_DOES_NOT_EXIST],
-            HTTP_EXCEPTION_ERROR_CODE.REVIEW_DOES_NOT_EXIST,
+            [HTTP_EXCEPTION_ERROR_MESSAGES.CONTACT_DOES_NOT_EXIST],
+            HTTP_EXCEPTION_ERROR_CODE.CONTACT_DOES_NOT_EXIST,
           ),
           data: null,
         };
       }
 
-      const reviewId = review.rows[0].reviewid;
+      const contactId = contact.rows[0].contactid;
 
       // TRANSACTION
       await this.conn.query('BEGIN');
 
       // Remove form
-      await this.conn.query('DELETE from reviews WHERE reviewid = $1;', [
-        reviewId,
+      await this.conn.query('DELETE from contacts WHERE contactid = $1;', [
+        contactId,
       ]);
 
       await this.conn.query('COMMIT');
@@ -343,7 +345,7 @@ export class ReviewsService {
       return {
         err: AppResponse.internalServerError(
           [error.message],
-          HTTP_EXCEPTION_ERROR_CODE.REVIEW_DELETE_FAILED,
+          HTTP_EXCEPTION_ERROR_CODE.CONTACT_DELETE_FAILED,
         ),
         data: null,
       };
