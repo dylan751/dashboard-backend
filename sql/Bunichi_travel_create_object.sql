@@ -85,9 +85,8 @@ CREATE TABLE products (
 );
 
 CREATE TABLE orders(
-	orderId INT NOT NULL,
+	orderId SERIAL PRIMARY KEY,
     productId INT NOT NULL,
     quantity INT NOT NULL,
-    PRIMARY KEY (orderId, productId),
     FOREIGN KEY (productId) REFERENCES products(productId) ON DELETE CASCADE ON UPDATE CASCADE
 );
