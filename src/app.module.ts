@@ -11,6 +11,7 @@ import { DestinationsModule } from './destinations/destinations.module';
 import { FormsModule } from './forms/forms.module';
 import { ReviewsModule } from './reviews/reviews.module';
 import { ContactsModule } from './contacts/contacts.module';
+import { ProductsModule } from './products/products.module';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { ContactsModule } from './contacts/contacts.module';
     FormsModule,
     ReviewsModule,
     ContactsModule,
+    ProductsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

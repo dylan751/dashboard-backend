@@ -45,7 +45,7 @@ export class DestinationsService {
       try {
         await this.conn.query('BEGIN');
 
-        // Create new user record
+        // Create new destination record
         const destinationQueryInsert = await this.conn.query(
           `
             INSERT INTO destinations

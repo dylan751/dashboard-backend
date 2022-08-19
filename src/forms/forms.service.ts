@@ -31,7 +31,7 @@ export class FormsService {
       try {
         await this.conn.query('BEGIN');
 
-        // Create new user record
+        // Create new form record
         const formQueryInsert = await this.conn.query(
           `
             INSERT INTO forms

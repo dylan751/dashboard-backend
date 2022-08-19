@@ -25,7 +25,7 @@ export class ReviewsService {
       try {
         await this.conn.query('BEGIN');
 
-        // Create new user record
+        // Create new review record
         const reviewQueryInsert = await this.conn.query(
           `
             INSERT INTO reviews

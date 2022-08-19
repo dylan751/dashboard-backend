@@ -56,7 +56,7 @@ export class ToursService {
       try {
         await this.conn.query('BEGIN');
 
-        // Create new user record
+        // Create new tour record
         const tourQueryInsert = await this.conn.query(
           `
             INSERT INTO tours
