@@ -112,6 +112,7 @@ export class FormsService {
     try {
       let query = `
         SELECT
+          formid,
           tourId,
           name,
           phoneNumber,
@@ -130,6 +131,7 @@ export class FormsService {
       // Update code findAll
       const collection: Collection<Form> = {
         edges: forms.rows.map((row) => ({
+          formId: row.formid,
           tourId: row.tourid,
           name: row.name,
           phoneNumber: row.phonenumber,
