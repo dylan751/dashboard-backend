@@ -1,19 +1,17 @@
 -- drop tables
-USE db_travel_page_project;
-
-DROP TABLE IF EXISTS Contact;
-DROP TABLE IF EXISTS Review;
-DROP TABLE IF EXISTS Users;
-DROP TABLE IF EXISTS Form;
-DROP TABLE IF EXISTS DiaDiemGiaiTri;
-DROP TABLE IF EXISTS Tour;
-DROP TABLE IF EXISTS Product;
+DROP TABLE IF EXISTS contacts;
+DROP TABLE IF EXISTS reviews;
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS forms;
+DROP TABLE IF EXISTS destinations;
+DROP TABLE IF EXISTS tours;
+DROP TABLE IF EXISTS products;
 
 -- Select Data
-SELECT * FROM Tour;
-SELECT * FROM DiaDiemGiaiTri;
--- SELECT * FROM Users; 
-SELECT * FROM Form;
-SELECT * FROM Review;
-SELECT * FROM Contact;
-SELECT * FROM Product;
+SELECT * FROM tours;
+SELECT * FROM destinations;
+SELECT * FROM users; 
+SELECT * FROM forms;
+SELECT * FROM reviews;
+SELECT * FROM contacts;
+SELECT * FROM products;

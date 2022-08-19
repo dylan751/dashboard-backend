@@ -43,7 +43,7 @@ export class AppService {
       return {
         err: AppResponse.internalServerError(
           [error.message],
-          HTTP_EXCEPTION_ERROR_CODE.IVR_FIND_FAILED,
+          HTTP_EXCEPTION_ERROR_CODE.USER_LIST_FAILED,
         ),
         data: null,
       };
