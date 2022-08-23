@@ -41,7 +41,7 @@ export class ContactsService {
             VALUES ($1,$2,$3,$4,$5,$6)
             RETURNING contactid
           `,
-          [userId, name, phoneNumber, email, title, description],
+          [userId ? userId : 4, name, phoneNumber, email, title, description],
         );
         const id = contactQueryInsert.rows[0].contactid;
         await this.conn.query('COMMIT');
