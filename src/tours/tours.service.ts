@@ -483,4 +483,45 @@ export class ToursService {
       };
     }
   }
+
+  async getTourPriceBarChart() {
+    let query = '';
+    const data = [];
+
+    // The range of prices
+    const priceRangeArr = [
+      { min: 0, max: 200 },
+      { min: 200, max: 400 },
+      { min: 400, max: 600 },
+      { min: 600, max: 800 },
+      { min: 800, max: 1000 },
+      { min: 1000, max: 1200 },
+      { min: 1200, max: 1400 },
+      { min: 1400, max: 1600 },
+    ];
+    await Promise.all(
+      priceRangeArr.map(async (priceRange) => {
+        query = `
+        SELECT COUNT(*)
+        FROM tours
+        WHERE price > ${priceRange.min} AND price <= ${priceRange.max} 
+      `;
+        const total = await this.conn.query(query);
+        data.push({
+          x: `$${priceRange.min}-${priceRange.max}`,
+          y: total.rows[0].count,
+        });
+      }),
+    );
+
+    // Sort the result array based on price range
+    const sortedData = data.sort((a, b) => {
+      if (+a.x.split('-')[1] > +b.x.split('-')[1]) {
+        return 1;
+      } else {
+        return -1;
+      }
+    });
+    return sortedData;
+  }
 }

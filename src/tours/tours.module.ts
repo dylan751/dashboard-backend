@@ -7,5 +7,6 @@ import { DatabaseModule } from 'src/database/database.module';
   imports: [DatabaseModule],
   controllers: [ToursController],
   providers: [ToursService],
+  exports: [ToursService],
 })
 export class ToursModule {}
