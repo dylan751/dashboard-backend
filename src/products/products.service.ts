@@ -134,6 +134,9 @@ export class ProductsService {
         },
       };
 
+      // Sort result array
+      collection.edges.sort((a, b) => (a.productId > b.productId ? 1 : -1));
+
       return {
         err: null,
         data: collection,

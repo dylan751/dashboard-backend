@@ -130,6 +130,9 @@ export class ContactsService {
         },
       };
 
+      // Sort result array
+      collection.edges.sort((a, b) => (a.contactId > b.contactId ? 1 : -1));
+
       return {
         err: null,
         data: collection,

@@ -82,16 +82,16 @@ export class ToursService {
             title,
             duration,
             startTime,
-            rating,
+            rating ? rating : 4,
             hotel,
             price,
             vehicle,
             type,
-            numberOfPeople,
+            numberOfPeople ? numberOfPeople : 0,
             description,
-            numberOfBooking,
+            numberOfBooking ? numberOfBooking : 0,
             image,
-            isTrending,
+            isTrending ? isTrending : false,
           ],
         );
         const id = tourQueryInsert.rows[0].tourid;
@@ -201,6 +201,9 @@ export class ToursService {
           total: tours.rows.length || 0,
         },
       };
+
+      // Sort result array
+      collection.edges.sort((a, b) => (a.tourId > b.tourId ? 1 : -1));
 
       return {
         err: null,
@@ -395,7 +398,7 @@ export class ToursService {
       }
 
       // Update isTrending
-      if (isTrending) {
+      if (isTrending !== undefined) {
         query += ` isTrending = \'${isTrending}\'`;
       }
 

@@ -153,6 +153,11 @@ export class DestinationsService {
         },
       };
 
+      // Sort result array
+      collection.edges.sort((a, b) =>
+        a.destinationId > b.destinationId ? 1 : -1,
+      );
+
       return {
         err: null,
         data: collection,

@@ -147,6 +147,9 @@ export class FormsService {
         },
       };
 
+      // Sort result array
+      collection.edges.sort((a, b) => (a.formId > b.formId ? 1 : -1));
+
       return {
         err: null,
         data: collection,

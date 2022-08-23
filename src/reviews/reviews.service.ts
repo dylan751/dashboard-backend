@@ -129,6 +129,9 @@ export class ReviewsService {
         },
       };
 
+      // Sort result array
+      collection.edges.sort((a, b) => (a.reviewId > b.reviewId ? 1 : -1));
+
       return {
         err: null,
         data: collection,
