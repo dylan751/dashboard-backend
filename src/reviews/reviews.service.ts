@@ -40,7 +40,7 @@ export class ReviewsService {
             VALUES ($1,$2,$3,$4,$5,$6)
             RETURNING reviewid
           `,
-          [userId, name, email, tourId, rating, content],
+          [userId ? userId : 1, name, email, tourId, rating, content],
         );
         const id = reviewQueryInsert.rows[0].reviewid;
         await this.conn.query('COMMIT');
