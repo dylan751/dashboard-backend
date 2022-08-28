@@ -365,4 +365,28 @@ export class ProductsService {
       };
     }
   }
+
+  async getProductCategoryPieChart() {
+    let query = '';
+    const data = [];
+
+    // The range of prices
+    const categoryArr = ['Valie', 'Shirt', 'Bag', 'Shoes'];
+    query = `
+      SELECT SUM(quantity) as sum
+      FROM products
+      GROUP BY category
+    `;
+    const res = await this.conn.query(query);
+
+    categoryArr.map((category, index) => {
+      data.push({
+        x: category,
+        y: Number(res.rows[index].sum),
+        text: res.rows[index].sum,
+      });
+    });
+
+    return data;
+  }
 }
