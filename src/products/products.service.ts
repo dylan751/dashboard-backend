@@ -107,7 +107,7 @@ export class ProductsService {
           category,
           image,
           count,
-          striptid
+          stripeid
         FROM products
       `;
 
