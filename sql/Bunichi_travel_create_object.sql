@@ -82,7 +82,7 @@ CREATE TABLE products (
     category VARCHAR(40),
     image VARCHAR(100),
     count SMALLINT,
-	stripeId CHAR(100),
+	stripeId VARCHAR(100),
 );
 
 CREATE TABLE orders(
