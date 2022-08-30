@@ -87,12 +87,20 @@ VALUES	('1','Hoang Van Hien','0123456789','abc143@gmail.com', 'My information', 
 		('1','Nguyen Duc Tung','0123456969','hacker@gmail.com', null, null),
 		('1','Le Van Duan','0123456999','loli@gmail.com', null, null);
         
-INSERT INTO products (name, price, quantity, description, category, image, count)
-VALUES ('Vali Gucci', '400', '10', 'Day la mot chiec Vali rat thich hop cho viec du lich mot chiec Vali rat thich hop cho viec du lich', 'Vali', '/images/product/product-1.jpg', '1'),
-		('Vali Gucci', '500', '10', 'Day la mot chiec Vali rat thich hop cho viec du lich mot chiec Vali rat thich hop cho viec du lich', 'Vali', '/images/product/product-2.jpg', '1'),
-        ('Vali Gucci', '550', '10', 'Day la mot chiec Vali rat thich hop cho viec du lich mot chiec Vali rat thich hop cho viec du lich', 'Vali', '/images/product/product-3.jpg', '1'),
-        ('Vali Gucci', '399', '10', 'Day la mot chiec Vali rat thich hop cho viec du lich mot chiec Vali rat thich hop cho viec du lich', 'Vali', '/images/product/product-4.jpg', '1'),
-        ('Vali Gucci', '49', '10', 'Day la mot chiec Vali rat thich hop cho viec du lich mot chiec Vali rat thich hop cho viec du lich', 'Vali', '/images/product/product-5.jpg', '1'),
-        ('Vali Gucci', '300', '10', 'Day la mot chiec Vali rat thich hop cho viec du lich mot chiec Vali rat thich hop cho viec du lich', 'Vali', '/images/product/product-6.jpg', '1'),
-        ('Vali Gucci', '300', '10', 'Day la mot chiec Vali rat thich hop cho viec du lich mot chiec Vali rat thich hop cho viec du lich', 'Vali', '/images/product/product-7.jpg', '1'),
-        ('Vali Gucci', '400', '10', 'Day la mot chiec Vali rat thich hop cho viec du lich mot chiec Vali rat thich hop cho viec du lich', 'Vali', '/images/product/product-8.jpg', '1');
+INSERT INTO products (name, price, quantity, description, category, image, count, stripeId)
+VALUES 	('Vali Gucci', '450', '10', 'Day la mot chiec Vali rat thich hop cho viec du lich mot chiec Vali rat thich hop cho viec du lich', 'Vali', '/images/product/product-1.jpg', '1', 'price_1LbQSgKuIWZy8vOrI3BJn0bC'),
+        ('Small Vali', '100', '10', 'Day la mot chiec Vali rat thich hop cho viec du lich mot chiec Vali rat thich hop cho viec du lich', 'Vali', '/images/product/product-2.jpg', '1', 'price_1LcKPMKuIWZy8vOrJvrlC3dn'),
+        ('Rain Coat', '20', '10', 'Day la mot chiec Vali rat thich hop cho viec du lich mot chiec Vali rat thich hop cho viec du lich', 'Shirt', '/images/product/product-3.jpg', '1', 'price_1LcKNpKuIWZy8vOrSKVfydxG'),
+        ('Leather Bag', '245', '10', 'Day la mot chiec Vali rat thich hop cho viec du lich mot chiec Vali rat thich hop cho viec du lich', 'Bag', '/images/product/product-4.jpg', '1', 'price_1LcKQBKuIWZy8vOrSPGS44k9'),
+        ('Bomber Package', '50', '10', 'Day la mot chiec Vali rat thich hop cho viec du lich mot chiec Vali rat thich hop cho viec du lich', 'Bag', '/images/product/product-5.jpg', '1', 'price_1LcKRiKuIWZy8vOr4NXkxeVP'),
+        ('Blue Vali', '35', '10', 'Day la mot chiec Vali rat thich hop cho viec du lich mot chiec Vali rat thich hop cho viec du lich', 'Vali', '/images/product/product-6.jpg', '1', 'price_1LcKSaKuIWZy8vOrmQyAuyDv'),
+        ('Gray Bag', '45', '10', 'Day la mot chiec Vali rat thich hop cho viec du lich mot chiec Vali rat thich hop cho viec du lich', 'Bag', '/images/product/product-7.jpg', '1', 'price_1LcKTLKuIWZy8vOrgRDprjnN'),
+        ('Adidas Shoes', '20', '10', 'Day la mot chiec Vali rat thich hop cho viec du lich mot chiec Vali rat thich hop cho viec du lich', 'Shoes', '/images/product/product-8.jpg', '1', 'price_1LcKV9KuIWZy8vOrRzus88VH'),
+        ('Large Vali', '120', '10', 'Day la mot chiec Vali rat thich hop cho viec du lich mot chiec Vali rat thich hop cho viec du lich', 'Vali', '/images/product/product-9.jpg', '1', 'price_1LcKWFKuIWZy8vOruOAqu2vT'),
+        ('Family Set', '250', '10', 'Day la mot chiec Vali rat thich hop cho viec du lich mot chiec Vali rat thich hop cho viec du lich', 'Vali', '/images/product/product-10.jpg', '1', 'price_1LcKXMKuIWZy8vOrt7roX8Bf'),
+        ('Waterproof Bag', '35', '10', 'Day la mot chiec Vali rat thich hop cho viec du lich mot chiec Vali rat thich hop cho viec du lich', 'Bag', '/images/product/product-11.jpg', '1', 'price_1LcKYRKuIWZy8vOryP1XxIAR'),
+		('Premium Bag', '300', '10', 'Day la mot chiec Vali rat thich hop cho viec du lich mot chiec Vali rat thich hop cho viec du lich', 'Bag', '/images/product/product-12.jpg', '1', 'price_1LcK8LKuIWZy8vOrADqC4wAj'),
+        ('Hiking Shoes', '60', '10', 'Day la mot chiec Vali rat thich hop cho viec du lich mot chiec Vali rat thich hop cho viec du lich', 'Shoes', '/images/product/product-13.jpg', '1', 'price_1LcKZdKuIWZy8vOrc7gGkxIR'),
+        ('Leather Shoes', '100', '10', 'Day la mot chiec Vali rat thich hop cho viec du lich mot chiec Vali rat thich hop cho viec du lich', 'Shoes', '/images/product/product-14.jpg', '1', 'price_1LcKbAKuIWZy8vOr6DSauYtq'),
+        ('Vietnam Shirt', '10', '10', 'Day la mot chiec Vali rat thich hop cho viec du lich mot chiec Vali rat thich hop cho viec du lich', 'Shirt', '/images/product/product-15.jpg', '1', 'price_1LcKcFKuIWZy8vOrmFBwpU2E'),
+        ('T-Shirt', '43', '10', 'Day la mot chiec Vali rat thich hop cho viec du lich mot chiec Vali rat thich hop cho viec du lich', 'Shirt', '/images/product/product-16.jpg', '1', 'price_1LcKd3KuIWZy8vOrV8UdIgSO');

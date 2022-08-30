@@ -106,7 +106,8 @@ export class ProductsService {
           description,
           category,
           image,
-          count
+          count,
+          striptid
         FROM products
       `;
 
@@ -126,6 +127,7 @@ export class ProductsService {
           category: row.category,
           image: row.image,
           count: row.count,
+          stripeId: row.stripeid,
         })),
         pageInfo: {
           limit: limit || 0,
