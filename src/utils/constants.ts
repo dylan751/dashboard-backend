@@ -4,9 +4,9 @@ export const HTTP_EXCEPTION_ERROR_MESSAGES = {
   INVALID_JWT_TOKEN: 'invalid token',
   MISSING_JWT_TOKEN: 'missing JWT token',
   MISSING_DATA_PAYLOAD: 'missing user data in payload',
-  USER_DOES_NOT_EXIST: "user doesn't exist",
+  USER_DOES_NOT_EXIST: "user doesn't exist! Please input another email!",
   USER_EMAIL_MUST_UNIQUE: "user's email must be unique",
-  INVALID_PASSWORD: 'Invalid password',
+  INVALID_PASSWORD: 'Invalid password! Please try again!',
 
   TOUR_TITLE_MUST_UNIQUE: "Tour's title must be unique",
   TOUR_DOES_NOT_EXIST: 'Tour does not exist',
