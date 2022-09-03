@@ -1,11 +1,11 @@
 export const HTTP_EXCEPTION_ERROR_MESSAGES = {
   AGENT_UNAUTHORIZED_ACTION: 'This agent cannot perform this action',
-  FORBIDDEN_RESOURCE: 'forbidden resource',
-  INVALID_JWT_TOKEN: 'invalid token',
-  MISSING_JWT_TOKEN: 'missing JWT token',
-  MISSING_DATA_PAYLOAD: 'missing user data in payload',
-  USER_DOES_NOT_EXIST: "user doesn't exist! Please input another email!",
-  USER_EMAIL_MUST_UNIQUE: "user's email must be unique",
+  FORBIDDEN_RESOURCE: 'Forbidden resource',
+  INVALID_JWT_TOKEN: 'Invalid token',
+  MISSING_JWT_TOKEN: 'Missing JWT token',
+  MISSING_DATA_PAYLOAD: 'Missing user data in payload',
+  USER_DOES_NOT_EXIST: "User doesn't exist! Please input another email!",
+  USER_EMAIL_MUST_UNIQUE: "User's email must be unique",
   INVALID_PASSWORD: 'Invalid password! Please try again!',
 
   TOUR_TITLE_MUST_UNIQUE: "Tour's title must be unique",
