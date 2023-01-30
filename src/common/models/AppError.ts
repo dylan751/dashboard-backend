@@ -1,12 +1,12 @@
 import { HttpStatus } from '@nestjs/common';
 
 export enum CustomErrorCode {
-  // Just for example
+  // Just for example only
   SIP_ACCOUNT_NOT_FOUND = 1101,
 }
 
 export enum CustomErrorMessage {
-  // Just for example
+  // Just for example only
   AST_QUEUE_MEMBER_NOT_FOUND = 'You must login sip account first',
 }
 
