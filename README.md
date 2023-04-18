@@ -10,21 +10,21 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/muoi07052001/dashboard-backend">
+  <a href="https://github.com/dylan751/dashboard-backend">
   </a>
 
 <h3 align="center">Dashboard App Back End</h3>
 
   <p align="center">
     <br />
-    <a href="https://github.com/muoi07052001/dashboard-backend"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/dylan751/dashboard-backend"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/muoi07052001/dashboard-backend">View Repo</a>
+    <a href="https://github.com/dylan751/dashboard-backend">View Repo</a>
     ·
-    <a href="https://github.com/muoi07052001/dashboard-backend/issues">Report Bug</a>
+    <a href="https://github.com/dylan751/dashboard-backend/issues">Report Bug</a>
     ·
-    <a href="https://github.com/muoi07052001/dashboard-backend/issues">Request Feature</a>
+    <a href="https://github.com/dylan751/dashboard-backend/issues">Request Feature</a>
   </p>
 </div>
 
@@ -92,7 +92,7 @@ Things you need to use the software and how to install them.
 
 2. Clone the repo
    ```sh
-   git clone https://github.com/muoi07052001/dashboard-backend.git
+   git clone https://github.com/dylan751/dashboard-backend.git
    ```
 3. Install packages and dependencies (yarn)
    ```sh
@@ -158,7 +158,7 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 - [x] Shoppint Cart Feature
 - [ ] Blog Feature
 
-See the [open issues](https://github.com/muoi07052001/dashboard-backend/issues) for a full list of proposed features (and known issues).
+See the [open issues](https://github.com/dylan751/dashboard-backend/issues) for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#readme-top">Back to top</a>)</p>
 
@@ -185,7 +185,7 @@ Don't forget to give the project a star! Thanks again!
 
 Nguyen Hai Duong - [@facebook_handle](https://www.facebook.com/duong.nguyenhai.7140/) - muoi07052001@gmail.com
 
-Project Link: [https://github.com/muoi07052001/dashboard-backend](https://github.com/muoi07052001/dashboard-backend)
+Project Link: [https://github.com/dylan751/dashboard-backend](https://github.com/dylan751/dashboard-backend)
 
 <p align="right">(<a href="#readme-top">Back to top</a>)</p>
 
@@ -203,15 +203,15 @@ Project Link: [https://github.com/muoi07052001/dashboard-backend](https://github
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
 [contributors-shield]: https://img.shields.io/github/contributors/muoi07052001/dashboard-backend.svg?style=for-the-badge
-[contributors-url]: https://github.com/muoi07052001/dashboard-backend/graphs/contributors
+[contributors-url]: https://github.com/dylan751/dashboard-backend/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/muoi07052001/dashboard-backend.svg?style=for-the-badge
-[forks-url]: https://github.com/muoi07052001/dashboard-backend/network/members
+[forks-url]: https://github.com/dylan751/dashboard-backend/network/members
 [stars-shield]: https://img.shields.io/github/stars/muoi07052001/dashboard-backend.svg?style=for-the-badge
-[stars-url]: https://github.com/muoi07052001/dashboard-backend/stargazers
+[stars-url]: https://github.com/dylan751/dashboard-backend/stargazers
 [issues-shield]: https://img.shields.io/github/issues/muoi07052001/dashboard-backend.svg?style=for-the-badge
-[issues-url]: https://github.com/muoi07052001/dashboard-backend/issues
+[issues-url]: https://github.com/dylan751/dashboard-backend/issues
 [license-shield]: https://img.shields.io/github/license/muoi07052001/dashboard-backend.svg?style=for-the-badge
-[license-url]: https://github.com/muoi07052001/dashboard-backend/blob/master/LICENSE.txt
+[license-url]: https://github.com/dylan751/dashboard-backend/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/nguyen-duong-072879247/
 [product-screenshot]: images/product-screenshot.png
